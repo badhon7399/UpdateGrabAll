@@ -19,8 +19,8 @@ const app = express();
 app.use(helmet()); // Set security HTTP headers
 app.use(xss()); // Sanitize data
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://graball.com' 
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://graball.com'
     : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'],
   credentials: true
 }));
@@ -92,7 +92,7 @@ app.use((err, req, res, next) => {
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
-  
+
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
   });
